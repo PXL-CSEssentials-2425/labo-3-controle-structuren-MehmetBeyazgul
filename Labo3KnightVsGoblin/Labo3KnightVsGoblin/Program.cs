@@ -1,4 +1,110 @@
-﻿/* 
+﻿Console.WriteLine("Welkom to Knight vs Goblin!");
+Console.WriteLine("---------------------------");
+Console.Write("Enter knight healt: ");
+string input = Console.ReadLine();
+
+
+Random randomNumberGenerator = new Random();
+
+//? = if  : = else
+
+int knighthealt;
+//bool knighthealtVal = int.TryParse(input, out knighthealt);
+if (int.TryParse(input, out knighthealt))
+{
+    if (knighthealt <= 0 || knighthealt > 100)
+    {
+        //Waarde van getal te klein of te groet
+        Console.WriteLine("Invalid number, default value 100 is used.");
+        knighthealt = 100;
+    }
+    else
+    {
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine($"Knight healt: {knighthealt}");
+        Console.ResetColor();
+    }
+}
+else
+{
+    Console.WriteLine("Invalid number, default value 100 is used.");
+    knighthealt = 100;
+}
+
+//initialiseer levenspunten van goblin
+int goblinHealt = randomNumberGenerator.Next(1, 101);
+Console.ForegroundColor = ConsoleColor.Cyan;
+Console.WriteLine($"Goblin healt: {goblinHealt}");
+Console.ResetColor();
+
+//for(int attempts = 1; attempts <= 4; attempts++) 
+do
+{
+    //Console.WriteLine($"Ronde {attempts}");
+    int attackKnight = 10;
+    int attackGoblin = randomNumberGenerator.Next(5, 16);
+
+    Console.WriteLine("Choose your next move carrefully: ");
+    Console.WriteLine("1. Attack");
+    Console.WriteLine("2. Heal");
+    Console.Write("Enter your choose: ");
+    string selectieAction = Console.ReadLine();
+
+    switch (selectieAction)
+    {
+        case "1":
+            goblinHealt -= attackKnight;
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"You attacked the goblin for {attackKnight} damage!");
+            break;
+        case "2":
+            knighthealt += 10;
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("You healed yourself for 10 healt points!");
+
+            break;
+        default:
+            Console.WriteLine("Invalid move! Please choose a valid points!");
+            break;
+
+    }
+    if (goblinHealt > 0)
+    {
+        knighthealt -= attackGoblin;
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine($"Your were attaked by the goblin for {attackGoblin} damage!");
+        Console.ResetColor();
+    }
+
+
+    if (knighthealt <= 0)
+    {
+        Console.WriteLine("De knight is gestorven!");
+    }
+    else
+    {
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine($"Knight healt: {knighthealt}");
+        Console.ResetColor();
+    }
+    if (goblinHealt <= 0)
+    {
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("De goblin is gestorven!");
+        Console.ResetColor();
+    }
+    else
+    {
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine($"Goblin healt: {goblinHealt}");
+        Console.ResetColor();
+    }
+} while(knighthealt > 0 && goblinHealt > 0);
+
+
+
+
+/* 
  * Deel 1
  * 
  * We gaan een applicatie maken waarin de speler als ridder tegen een goblin moet vechten.
